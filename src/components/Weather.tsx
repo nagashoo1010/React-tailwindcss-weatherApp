@@ -3,21 +3,37 @@ import dayjs from 'dayjs';
 
 import { useEffect, useState } from 'react'
 
-export const Weather = ({ city_name, color_name }):string => {
+interface WeatherProps {
+  city_name: string;
+  color_name: string;
+}
+
+export const Weather = ({ city_name, color_name }: WeatherProps): JSX.Element => {
+
+  interface WeatherResponse {
+    name: string,
+    weather: {
+    main: number;
+    icon: string;
+    description: string;
+  }[];
+  }
+
   console.log(color_name);
-  const [weatherData, setWeatherData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [weatherData, setWeatherData] = useState<WeatherResponse | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const base_url = "https://api.openweathermap.org/data/2.5";
   const api_key = "9b153d1009a355b29461b493e6c5dbd6";
   const weather_icon = 'https://openweathermap.org/img/w';
 
 
+
   useEffect(() => {
     const getWeather = async () => {
         try {
           const response = await axios.get(`${base_url}/weather?q=${city_name},&appid=${api_key}`);
-          // console.log(response.data);
+          console.log(response.data);
           setWeatherData(response.data);
           setLoading(false);
         } catch (error) {
