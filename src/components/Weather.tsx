@@ -24,7 +24,7 @@ export const Weather = ({ city_name, color_name }: WeatherProps): JSX.Element =>
   const [loading, setLoading] = useState<boolean>(true);
 
   const base_url = "https://api.openweathermap.org/data/2.5";
-  const api_key = "9b153d1009a355b29461b493e6c5dbd6";
+  const api_key = "";
   const weather_icon = 'https://openweathermap.org/img/w';
 
 
@@ -33,7 +33,7 @@ export const Weather = ({ city_name, color_name }: WeatherProps): JSX.Element =>
     const getWeather = async () => {
         try {
           const response = await axios.get(`${base_url}/weather?q=${city_name},&appid=${api_key}`);
-          console.log(response.data);
+          // console.log(response.data);
           setWeatherData(response.data);
           setLoading(false);
         } catch (error) {
